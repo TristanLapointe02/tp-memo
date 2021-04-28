@@ -1,3 +1,3 @@
-# Exercice 4 : Application Memo
+# Exercice 4 : Application Memo (Tristan Lapointe)
 
-Code de départ de l'application Memo à utiliser pour l'exercice 4 du cours 582-4PA.
+Application Memo, exercice 4 du cours 582-4PA.
