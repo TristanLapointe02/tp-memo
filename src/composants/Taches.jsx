@@ -36,6 +36,23 @@ export default function Taches({etatTaches, utilisateur}) {
     }
   }
 
+  function supprimerTache(idTache) {
+    crudTaches.supprimer(utilisateur.uid, idTache).then(
+      () => {
+        setTaches(taches.filter(d => d.id !== idTache))
+      }
+    )
+  }
+
+  function modifierTache(idTache, completee) {
+    crudTaches.jeBascule(utilisateur.uid, idTache, completee).then(
+      () => {
+        //setTaches(taches.filter(d => d.id !== idTache))
+        console.log(':)')
+      }
+    )
+  }
+
   return (
     <section className="Taches">
       <form onSubmit={e => gererAjoutTache(uid, e)}>
@@ -49,7 +66,7 @@ export default function Taches({etatTaches, utilisateur}) {
       </form>
       <div className="listeTaches">
         {
-          taches.map(tache => <Tache key={tache.id} {... tache} />)
+          taches.map(tache => <Tache key={tache.id} {... tache} supprimerTache={supprimerTache} modifierTache={modifierTache}/>)
         }
       </div>
     </section>
