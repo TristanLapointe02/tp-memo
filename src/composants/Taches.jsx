@@ -47,8 +47,13 @@ export default function Taches({etatTaches, utilisateur}) {
   function modifierTache(idTache, completee) {
     crudTaches.jeBascule(utilisateur.uid, idTache, completee).then(
       () => {
-        //setTaches(taches.filter(d => d.id !== idTache))
-        console.log(':)')
+        setTaches(taches.map(tache => {
+          if(tache.id == idTache){
+            tache.completee = !completee;
+          }
+          return tache;
+        })
+      )
       }
     )
   }

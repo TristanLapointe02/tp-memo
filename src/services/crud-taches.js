@@ -42,9 +42,16 @@ export async function lireTout(uid) {
 // UID est collUtil.uid
 
 export async function jeBascule(uid, idTache, completee) {
+  if(completee === true) {
   return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).doc(idTache).update(
-    //
+    {completee: false}
   )
+  }
+  else{
+    return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).doc(idTache).update(
+      {completee: true}
+    )
+  }
 }
 
 //SUPPRIMER
