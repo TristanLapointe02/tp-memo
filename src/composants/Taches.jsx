@@ -1,4 +1,5 @@
 import Tache from './Tache';
+import Controle from './Controle';
 import './Taches.scss';
 import * as crudTaches from '../services/crud-taches';
 import { useState, useEffect } from 'react';
@@ -42,6 +43,10 @@ export default function Taches({etatTaches, utilisateur}) {
         setTaches(taches.filter(d => d.id !== idTache))
       }
     )
+  }
+
+  function supprimerTout(etatTache, uid){
+    crudTaches.supprimerCompletees(etatTache, uid)
   }
 
   function modifierTache(idTache, completee) {
