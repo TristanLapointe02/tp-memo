@@ -27,7 +27,7 @@ export async function creer(uid, tache) {
 export async function lireTout(uid) {
   const taches = [];
   console.log("J'ai été appuyé")
-  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).orderBy('date', 'desc').orderBy('completee', 'desc')
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).orderBy('completee', 'asc').orderBy('date', 'desc')
                 .get().then(
                   reponse => reponse.forEach(
                     doc => {
@@ -39,27 +39,46 @@ export async function lireTout(uid) {
                 );
 }
 
+/**
+ * Obtenir toutes les tâches complétées d'un utilisateur
+ * @param {string} uid identifiant d'utilisateur Firebase 
+ * @returns {Promise<any[]>} Promesse avec le tableau des tâches
+ */
 export async function lireToutCompletee(uid) {
   const tachesCompletees = [];
-  console.log("Completeess là")
+  console.log(tachesCompletees);
 
   return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where("completee", "==", true).get().then(
-    retour => retour.forEach(
+    reponse => reponse.forEach(
       doc => {
         tachesCompletees.push({id: doc.id, ...doc.data()})
       }
-      
     )
-    
   ).then(
     () => tachesCompletees
-    
   );
-
-  
-  
 }
 
+/**
+ * Obtenir toutes les tâches non complétées d'un utilisateur
+ * @param {string} uid identifiant d'utilisateur Firebase 
+ * @returns {Promise<any[]>} Promesse avec le tableau des tâches
+ */
+
+export async function lireToutNonCompletee(uid) {
+  const tachesNonCompletees = [];
+  console.log(tachesNonCompletees);
+
+  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where("completee", "==", false).get().then(
+    reponse => reponse.forEach(
+      doc => {
+        tachesNonCompletees.push({id: doc.id, ...doc.data()})
+      }
+    )
+  ).then(
+    () => tachesNonCompletees
+  );
+}
 
 
 // Basculer l'état d'une tâche.
@@ -76,7 +95,17 @@ export async function supprimer(uid, idTache) {
   return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).doc(idTache).delete();
 }
 
-//TOUT SUPPRIMER
-export async function supprimerCompletees(uid){
-  return instanceFirestore.collection(collUtil).doc(uid).collection(collTaches).where("completee", "==", true).delete();
+//TOUT SUPPRIMER LES TÂCHES COMPLÉTÉES
+export async function supprimerCompletees(uid)
+{
+  return instanceFirestore.collection(collUtil)
+  .doc(uid).collection(collTaches)
+   .where('completee', '==', true).get().then(
+     fctDel =>
+     {
+       fctDel.forEach(
+         doc => doc.ref.delete()
+       );
+     } 
+   );
 }

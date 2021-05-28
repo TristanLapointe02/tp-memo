@@ -45,9 +45,9 @@ export default function Taches({etatTaches, utilisateur}) {
     )
   }
 
-  function supprimerTout(etatTache, uid){
+  /*function supprimerTout(etatTache, uid){
     crudTaches.supprimerCompletees(etatTache, uid)
-  }
+  }*/
 
   function modifierTache(idTache, completee) {
     crudTaches.jeBascule(utilisateur.uid, idTache, completee).then(

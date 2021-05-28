@@ -13,9 +13,10 @@ export default function Controle({etatTaches, utilisateur, supprimerTout}) {
         size="small" 
         exclusive={true} 
       >
+        {/* Pas été capable de faire le refresh */}
         <ToggleButton value={'toutes'} onClick={() => crudTaches.lireTout(utilisateur.uid)}>Toutes</ToggleButton>
         <ToggleButton value={true} onClick={() => crudTaches.lireToutCompletee(utilisateur.uid)}>Complétées</ToggleButton>
-        <ToggleButton value={false}>Actives</ToggleButton>
+        <ToggleButton value={false} onClick={() => crudTaches.lireToutNonCompletee(utilisateur.uid)}>Actives</ToggleButton>
       </ToggleButtonGroup>
       <span className="compte">
        
@@ -26,8 +27,9 @@ export default function Controle({etatTaches, utilisateur, supprimerTout}) {
         aria-label="delete" 
         size="small" 
         variant="contained" 
-        color="secondary" 
-        onClick={() => supprimerTout(etatTaches, utilisateur)} 
+        color="secondary"
+        /* Pas été capable de faire le refresh instantaté */ 
+        onClick={() => crudTaches.supprimerCompletees(utilisateur.uid)} 
         title="Supprimer les tâches complétées"
       >
         <DeleteIcon fontSize="small" />
