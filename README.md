@@ -1,3 +1,3 @@
-# Exercice 4 : Application Memo (Tristan Lapointe)
+# TP : Application Memo (Tristan Lapointe ET Andy Ke)
 
-Application Memo, exercice 4 du cours 582-4PA.
+Application Memo, TP du cours 582-4PA.
